@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Enable React DevTools in development
-  reactDevOverlay: true,
   
   // TypeScript configuration
   typescript: {
