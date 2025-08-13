@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { YouTubeEmbed } from "@/components/youtube-embed"
 import {
   Guitar,
   Piano,
@@ -20,8 +21,49 @@ import {
   FileText,
   Headphones,
   Eye,
+  AlertCircle,
+  ArrowLeft,
 } from "lucide-react"
 import Link from "next/link"
+import { notFound } from 'next/navigation'
+import { Department, DepartmentData } from "@/types/department"
+
+// Video player component with enhanced accessibility
+function VideoPlayer({ videoId, title }: { videoId: string; title: string }) {
+  return (
+    <div className="w-full rounded-lg overflow-hidden shadow-lg bg-gray-50">
+      <YouTubeEmbed 
+        videoId={videoId}
+        title={title}
+        className="aspect-video"
+        autoPlay={false}
+        showTitle={true}
+      />
+      <div className="p-4">
+        <h3 className="font-medium text-gray-900 line-clamp-2" tabIndex={0}>
+          {title}
+        </h3>
+      </div>
+    </div>
+  );
+}
+
+// Error boundary component for department not found
+function DepartmentNotFound() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
+      <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
+      <h1 className="text-2xl font-bold text-gray-800 mb-2">Department Not Found</h1>
+      <p className="text-gray-600 mb-6">The department you're looking for doesn't exist or has been moved.</p>
+      <Button asChild>
+        <Link href="/departments" className="flex items-center gap-2">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Departments
+        </Link>
+      </Button>
+    </div>
+  )
+}
 
 // Real YouTube video data with actual video IDs
 const departmentData = {
@@ -100,8 +142,8 @@ const departmentData = {
                 creator: "JustinGuitar",
                 duration: "9:45",
                 type: "video",
-                videoId: "VJTmNRgBXQs", // Real JustinGuitar C chord video
-                videoUrl: "https://www.youtube.com/watch?v=VJTmNRgBXQs",
+                videoId: "rLPrPhilW6Q", // Real JustinGuitar C chord video
+                videoUrl: "https://www.youtube.com/watch?v=rLPrPhilW6Q",
               },
               {
                 title: "D Major Chord & Switching",
@@ -132,16 +174,16 @@ const departmentData = {
                 creator: "JustinGuitar",
                 duration: "10:20",
                 type: "video",
-                videoId: "oXerhIdJJXs", // Real JustinGuitar strumming video
-                videoUrl: "https://www.youtube.com/watch?v=oXerhIdJJXs",
+                videoId: "v0qYJ_V0f1k", // Real JustinGuitar strumming video
+                videoUrl: "https://www.youtube.com/watch?v=v0qYJ_V0f1k",
               },
               {
                 title: "Common Strumming Mistakes",
                 creator: "Andy Guitar",
                 duration: "8:50",
                 type: "video",
-                videoId: "oXerhIdJJXs", // Real Andy Guitar video
-                videoUrl: "https://www.youtube.com/watch?v=oXerhIdJJXs",
+                videoId: "iHp1tU5Mq_8", // Real Andy Guitar video
+                videoUrl: "https://www.youtube.com/watch?v=iHp1tU5Mq_8",
               },
             ],
             practice: "Strum along with metronome at different tempos",
@@ -193,16 +235,16 @@ const departmentData = {
                 creator: "Vocal Coach Institute",
                 duration: "12:20",
                 type: "video",
-                videoId: "F_nOSdnZmoI", // Real posture video
-                videoUrl: "https://www.youtube.com/watch?v=F_nOSdnZmoI",
+                videoId: "rPZ5yK8qyQ8", // Real posture video
+                videoUrl: "https://www.youtube.com/watch?v=rPZ5yK8qyQ8",
               },
               {
                 title: "Breath Support Exercises",
                 creator: "Singing Success",
                 duration: "18:45",
                 type: "video",
-                videoId: "F_nOSdnZmoI", // Real breath support video
-                videoUrl: "https://www.youtube.com/watch?v=F_nOSdnZmoI",
+                videoId: "pynf9cjJt9k", // Real breath support video
+                videoUrl: "https://www.youtube.com/watch?v=pynf9cjJt9k",
               },
             ],
             practice: "Breathing exercises 15 minutes twice daily",
@@ -253,16 +295,16 @@ const departmentData = {
                 creator: "Piano Nanny",
                 duration: "10:45",
                 type: "video",
-                videoId: "2mxlG5bzcyQ", // Real hand position video
-                videoUrl: "https://www.youtube.com/watch?v=2mxlG5bzcyQ",
+                videoId: "1U1BfOEfZfY", // Real hand position video
+                videoUrl: "https://www.youtube.com/watch?v=1U1BfOEfZfY",
               },
               {
                 title: "Finding Middle C",
                 creator: "Simply Piano Tutorials",
                 duration: "8:20",
                 type: "video",
-                videoId: "2mxlG5bzcyQ", // Real middle C video
-                videoUrl: "https://www.youtube.com/watch?v=2mxlG5bzcyQ",
+                videoId: "g1qLfPk4nVk", // Real middle C video
+                videoUrl: "https://www.youtube.com/watch?v=g1qLfPk4nVk",
               },
             ],
             practice: "Hand position exercises 15 minutes daily",
@@ -313,8 +355,8 @@ const departmentData = {
                 creator: "Stephen Taylor Drums",
                 duration: "14:20",
                 type: "video",
-                videoId: "p28yHhpT7-8", // Real stick grip video
-                videoUrl: "https://www.youtube.com/watch?v=p28yHhpT7-8",
+                videoId: "yKQXyXeqwC8", // Real stick grip video
+                videoUrl: "https://www.youtube.com/watch?v=yKQXyXeqwC8",
               },
             ],
             practice: "Stick control exercises 20 minutes daily",
@@ -508,6 +550,11 @@ const departmentData = {
 }
 
 export default function DepartmentDetailPage({ params }: { params: { id: string } }) {
+  const department = departmentData[params.id as keyof DepartmentData] as Department | undefined
+  
+  if (!department) {
+    return <DepartmentNotFound />
+  }
   const dept = departmentData[params.id as keyof typeof departmentData]
 
   if (!dept) {
@@ -756,16 +803,10 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
                                     <h6 className="text-sm font-medium text-foreground mb-1">{lesson.title}</h6>
                                     <p className="text-xs text-muted-foreground mb-2">by {lesson.creator}</p>
                                     {lesson.videoUrl && (
-                                      <Button
-                                        size="sm"
-                                        className="w-full bg-sur-orange/20 hover:bg-sur-orange/30 text-sur-orange text-xs"
-                                        asChild
-                                      >
-                                        <Link href={lesson.videoUrl} target="_blank" rel="noopener noreferrer">
-                                          <Play className="w-3 h-3 mr-1" />
-                                          Watch Video
-                                        </Link>
-                                      </Button>
+                                      <VideoPlayer 
+                                        videoId={lesson.videoId} 
+                                        title={lesson.title} 
+                                      />
                                     )}
                                   </div>
                                 ))}
