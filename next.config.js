@@ -1,21 +1,40 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Enable React DevTools in development
+  reactDevOverlay: true,
+  
+  // TypeScript configuration
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+    // Enable type checking during build
+    ignoreBuildErrors: false,
   },
+  
+  // ESLint configuration
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+    // Enable ESLint during build
+    ignoreDuringBuilds: false,
   },
-  webpack: (config, { isServer }) => {
+  
+  // Webpack configuration
+  webpack: (config, { isServer, dev }) => {
+    // Add custom webpack configurations here if needed
+    
     // Important: return the modified config
     return config;
+  },
+  
+  // Development server configuration
+  devIndicators: {
+    autoPrerender: false,
+  },
+  
+  // Enable source maps in development
+  productionBrowserSourceMaps: true,
+  
+  // Configure images
+  images: {
+    domains: ['img.youtube.com'],
   },
 }
 
