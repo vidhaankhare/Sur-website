@@ -88,7 +88,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground leading-relaxed">
-                  A world where geographical boundaries don't limit musical education, where the best instructional
+                  A world where geographical boundaries don'apos;t limit musical education, where the best instructional
                   content is organized and accessible, and where every aspiring musician can follow a clear path from
                   beginner to mastery.
                 </p>
@@ -104,7 +104,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">How SUR Works</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We don't create content - we curate the best. Our expert team scours the internet to find exceptional
+              We don'apos;t create content - we curate the best. Our expert team scours the internet to find exceptional
               music education resources and organizes them into structured learning paths.
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Music has the power to transform lives. We're passionate about sharing that transformative power.
+                  Music has the power to transform lives. We'apos;re passionate about sharing that transformative power.
                 </p>
               </CardContent>
             </Card>

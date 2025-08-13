@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { YouTubeEmbed } from "@/components/youtube-embed"
+import YouTubeEmbed from "@/components/youtube-embed"
 import {
   Guitar,
   Piano,
@@ -25,7 +25,7 @@ import {
   ArrowLeft,
 } from "lucide-react"
 import Link from "next/link"
-import { notFound } from 'next/navigation'
+import { notFound } from 'apos;next/navigation'apos;
 import { Department, DepartmentData } from "@/types/department"
 
 // Video player component with enhanced accessibility
@@ -54,7 +54,7 @@ function DepartmentNotFound() {
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
       <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
       <h1 className="text-2xl font-bold text-gray-800 mb-2">Department Not Found</h1>
-      <p className="text-gray-600 mb-6">The department you're looking for doesn't exist or has been moved.</p>
+      <p className="text-gray-600 mb-6">The department you'apos;re looking for doesn'apos;t exist or has been moved.</p>
       <Button asChild>
         <Link href="/departments" className="flex items-center gap-2">
           <ArrowLeft className="w-4 h-4" />

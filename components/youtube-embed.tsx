@@ -1,151 +1,164 @@
-'use client';
+'apos;use client'apos;;
 
-import { useEffect, useState, useRef, KeyboardEvent } from 'react';
-import Image from 'next/image';
-import { Play, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect } from 'apos;react'apos;;
+import { Play, Loader2 } from 'apos;lucide-react'apos;;
+import { cn } from 'apos;@/lib/utils'apos;;
 
+// Define thumbnail quality types
+type ThumbnailQuality = 'apos;default'apos; | 'apos;mqdefault'apos; | 'apos;hqdefault'apos; | 'apos;sddefault'apos; | 'apos;maxresdefault'apos;;
+
+// Define component props interface
 interface YouTubeEmbedProps {
   videoId: string;
   title: string;
   className?: string;
-  aspectRatio?: '16/9' | '4/3' | '1/1';
+  aspectRatio?: 'apos;16/9'apos; | 'apos;4/3'apos; | 'apos;1/1'apos;;
   autoPlay?: boolean;
   showTitle?: boolean;
+  thumbnailQuality?: ThumbnailQuality;
 }
 
-export function YouTubeEmbed({ 
-  videoId, 
-  title, 
-  className, 
-  aspectRatio = '16/9',
+// Main component implementation
+export default function YouTubeEmbed({
+  videoId,
+  title,
+  className = 'apos;'apos;,
+  aspectRatio = 'apos;16/9'apos;,
   autoPlay = false,
-  showTitle = true
+  showTitle = true,
+  thumbnailQuality = 'apos;hqdefault'apos;,
 }: YouTubeEmbedProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(autoPlay);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentThumbnail, setCurrentThumbnail] = useState(thumbnailQuality);
   const playButtonRef = useRef<HTMLButtonElement>(null);
   
+  // Generate thumbnail and embed URLs
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${currentThumbnail}.jpg`;
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
+
   // Calculate aspect ratio padding
-  const getAspectRatioPadding = () => {
-    switch (aspectRatio) {
-      case '16/9': return '56.25%';
-      case '4/3': return '75%';
-      case '1/1': return '100%';
-      default: return '56.25%';
-    }
+  const getAspectRatioPadding = (): string => {
+    const [width, height] = aspectRatio.split('apos;/'apos;).map(Number);
+    return `${(height / width) * 100}%`;
   };
 
-  // Handle click to load the actual iframe
+  // Handle play button click
   const handlePlay = () => {
     setIsLoaded(true);
+    setIsLoading(true);
   };
 
-  // Handle keyboard events for accessibility
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'apos;Enter'apos; || e.key === 'apos; 'apos;) {
       e.preventDefault();
       handlePlay();
     }
   };
 
-  // Handle iframe load
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    const currentSrc = target.src;
+
+    // Try next lower quality thumbnail
+    const qualities: ThumbnailQuality[] = ['apos;maxresdefault'apos;, 'apos;hqdefault'apos;, 'apos;mqdefault'apos;, 'apos;default'apos;];
+    const currentIndex = qualities.indexOf(currentThumbnail);
+    
+    if (currentIndex < qualities.length - 1) {
+      setCurrentThumbnail(qualities[currentIndex + 1]);
+    }
+  };
+
   const handleIframeLoad = () => {
     setIsLoading(false);
-    // Move focus to the iframe for keyboard users
     const iframe = document.querySelector(`iframe[title="${title}"]`) as HTMLIFrameElement;
     if (iframe) {
       iframe.focus();
     }
   };
 
-  // Auto-focus the play button when component mounts
   useEffect(() => {
     if (playButtonRef.current && !isLoaded) {
       playButtonRef.current.focus();
     }
-  }, []);
+  }, [isLoaded]);
 
   return (
-    <div 
+    <div
       className={cn(
-        'relative w-full overflow-hidden bg-black/5 rounded-lg',
-        'focus:outline-none focus-visible:ring-2 focus-visible:ring-sur-orange focus-visible:ring-offset-2',
+        'apos;relative overflow-hidden bg-black rounded-lg'apos;,
+        'apos;focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange'apos;,
         className
       )}
       style={{
-        position: 'relative',
         paddingBottom: getAspectRatioPadding(),
+        position: 'apos;relative'apos;,
+        width: 'apos;100%'apos;,
         height: 0,
       }}
+      aria-label={`YouTube video player for ${title}`}
       role="region"
-      aria-label={`Video: ${title}`}
     >
       {!isLoaded ? (
-        <button
-          ref={playButtonRef}
-          onClick={handlePlay}
-          onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full flex items-center justify-center group focus:outline-none"
-          aria-label={`Play video: ${title}`}
-          aria-haspopup="true"
-          aria-expanded={isLoaded}
-        >
-          <div className="relative w-full h-full">
-            <Image
-              src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-              priority={false}
-              aria-hidden="true"
-            />
-            <div 
-              className="absolute inset-0 bg-black/30 group-hover:bg-black/20 group-focus:ring-2 group-focus:ring-sur-orange transition-all duration-200"
-              aria-hidden="true"
+        <>
+          <div className="absolute inset-0 bg-gray-900">
+            <img
+              src={thumbnailUrl}
+              alt={`${title} thumbnail`}
+              className="w-full h-full object-cover"
+              onError={handleImageError}
             />
           </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div 
-              className="w-16 h-16 md:w-20 md:h-20 bg-red-600 rounded-full flex items-center justify-center transform transition-transform group-hover:scale-110 group-focus:scale-110"
-              aria-hidden="true"
-            >
-              <Play className="w-6 h-6 md:w-8 md:h-8 text-white ml-1" />
+
+          <button
+            ref={playButtonRef}
+            onClick={handlePlay}
+            onKeyDown={handleKeyDown}
+            className={cn(
+              'apos;absolute inset-0 flex items-center justify-center w-full h-full'apos;,
+              'apos;bg-black/30 hover:bg-black/20 transition-all duration-200'apos;,
+              'apos;focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange'apos;,
+              'apos;group'apos;
+            )}
+            aria-label={`Play video: ${title}`}
+            aria-haspopup="true"
+            aria-expanded={isLoaded}
+          >
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-sur-orange/90 hover:bg-sur-orange rounded-full flex items-center justify-center group-focus:ring-2 group-focus:ring-white transition-all duration-200 transform hover:scale-110">
+              <Play className="w-8 h-8 md:w-10 md:h-10 text-black ml-1" />
             </div>
-            <span className="sr-only">Play video: {title}</span>
-          </div>
-        </button>
+            <span className="sr-only">Play: {title}</span>
+          </button>
+        </>
       ) : (
         <>
-          <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${autoPlay ? '&autoplay=1' : ''}`}
-            title={`Video: ${title}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute top-0 left-0 w-full h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-sur-orange"
-            loading="lazy"
-            onLoad={handleIframeLoad}
-            tabIndex={0}
-            aria-label={`YouTube video player for ${title}`}
-            aria-modal="true"
-          />
-          {showTitle && (
-            <div className="sr-only">
-              <h3>Now playing: {title}</h3>
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black">
+              <Loader2 className="w-12 h-12 text-sur-orange animate-spin" />
             </div>
           )}
+
+          <iframe
+            src={embedUrl}
+            title={title}
+            className={cn(
+              'apos;absolute top-0 left-0 w-full h-full'apos;,
+              isLoading ? 'apos;opacity-0'apos; : 'apos;opacity-100'apos;,
+              'apos;transition-opacity duration-300'apos;
+            )}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            onLoad={handleIframeLoad}
+            loading="lazy"
+            aria-label={`Embedded YouTube video: ${title}`}
+          />
         </>
       )}
-      
-      {isLoading && isLoaded && (
-        <div 
-          className="absolute inset-0 flex items-center justify-center bg-black/5"
-          role="status"
-          aria-label="Loading video"
-        >
-          <Loader2 className="w-12 h-12 text-sur-orange animate-spin" />
-          <span className="sr-only">Loading video...</span>
+
+      {showTitle && (
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+          <h3 className="text-white text-sm font-medium line-clamp-2">{title}</h3>
         </div>
       )}
     </div>

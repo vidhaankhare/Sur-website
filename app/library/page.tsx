@@ -165,11 +165,11 @@ const recentAdditions = [
 const collections = [
   {
     id: 1,
-    title: "Editor's Pick: Essential Guitar Skills",
+    title: "Editor'apos;s Pick: Essential Guitar Skills",
     description: "Hand-selected resources for building fundamental guitar techniques",
     resourceCount: 24,
     image: "/images/guitar-hero.png",
-    badge: "Editor's Choice",
+    badge: "Editor'apos;s Choice",
   },
   {
     id: 2,
@@ -493,7 +493,7 @@ export default function LibraryPage() {
       {/* CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-sur-orange to-sur-orange-dark text-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Can't Find What You're Looking For?</h2>
+          <h2 className="text-3xl font-bold mb-4">Can'apos;t Find What You'apos;re Looking For?</h2>
           <p className="text-xl mb-8 opacity-90">Suggest new resources or request specific content for our library</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="text-lg px-8">

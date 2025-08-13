@@ -1,12 +1,12 @@
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
-import { DepartmentHero, RoadmapCard, WeeklyContent } from '@/components/departments';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { ChevronRight, BookOpen, Users, Award, Star, Clock, FileText } from 'lucide-react';
-import { Department, DepartmentData } from '@/types/department';
-import { getDepartmentById } from '@/lib/department-utils';
-import { Suspense } from 'react';
+import { notFound } from 'apos;next/navigation'apos;;
+import { Metadata } from 'apos;next'apos;;
+import { DepartmentHero, RoadmapCard, WeeklyContent } from 'apos;@/components/departments'apos;;
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'apos;@/components/ui/tabs'apos;;
+import { Button } from 'apos;@/components/ui/button'apos;;
+import { ChevronRight, BookOpen, Users, Award, Star, Clock, FileText } from 'apos;lucide-react'apos;;
+import { Department, DepartmentData } from 'apos;@/types/department'apos;;
+import { getDepartmentById } from 'apos;@/lib/department-utils'apos;;
+import { Suspense } from 'apos;react'apos;;
 
 interface DepartmentPageProps {
   params: { id: string };
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: DepartmentPageProps): Promise
   
   if (!department) {
     return {
-      title: 'Department Not Found | SUR Music Academy',
-      description: 'The requested department could not be found.'
+      title: 'apos;Department Not Found | SUR Music Academy'apos;,
+      description: 'apos;The requested department could not be found.'apos;
     };
   }
 
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: DepartmentPageProps): Promise
       description: department.description,
       images: [
         {
-          url: department.image || '/images/og-image.jpg',
+          url: department.image || 'apos;/images/og-image.jpg'apos;,
           width: 1200,
           height: 630,
           alt: department.name,
@@ -62,7 +62,7 @@ function DepartmentNotFound() {
       </div>
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Department Not Found</h1>
       <p className="text-gray-600 mb-6 max-w-md">
-        We couldn't find the department you're looking for. It may have been moved or doesn't exist.
+        We couldn'apos;t find the department you'apos;re looking for. It may have been moved or doesn'apos;t exist.
       </p>
       <Button asChild>
         <a href="/departments" className="flex items-center gap-2">
