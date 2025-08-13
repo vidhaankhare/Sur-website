@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "SUR - where music finds you",
   description: "World-class music education through expertly curated learning paths",
-    generator: 'v0.app'
+    generator: 'apos;v0.app'apos;
 }
 
 export default function RootLayout({

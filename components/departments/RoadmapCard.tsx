@@ -111,7 +111,7 @@ export function RoadmapCard({ roadmap, index, departmentId }: RoadmapCardProps) 
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-sur-orange transition-all duration-500" 
-                style={{ width: '0%' }}
+                style={{ width: 'apos;0%'apos; }}
                 role="progressbar"
                 aria-valuenow={0}
                 aria-valuemin={0}

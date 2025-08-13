@@ -25,7 +25,7 @@ export function WeeklyContent({ content, weekNumber }: WeeklyContentProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {content.lessons.map((lesson, lessonIndex) => (
           <Card key={lessonIndex} className="overflow-hidden border-border hover:shadow-md transition-shadow">
-            {lesson.type === 'video' && (
+            {lesson.type === 'apos;video'apos; && (
               <div className="aspect-video">
                 <VideoPlayer 
                   videoId={lesson.videoId} 
@@ -37,7 +37,7 @@ export function WeeklyContent({ content, weekNumber }: WeeklyContentProps) {
             <CardHeader className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <Badge variant="outline" className="text-xs">
-                  {lesson.type === 'video' ? 'Video' : 'Reading'}
+                  {lesson.type === 'apos;video'apos; ? 'apos;Video'apos; : 'apos;Reading'apos;}
                 </Badge>
                 <span className="text-xs text-muted-foreground">{lesson.duration}</span>
               </div>
@@ -53,7 +53,7 @@ export function WeeklyContent({ content, weekNumber }: WeeklyContentProps) {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center"
                 >
-                  {lesson.type === 'video' ? (
+                  {lesson.type === 'apos;video'apos; ? (
                     <>
                       <Play className="w-4 h-4 mr-2" />
                       Watch Now

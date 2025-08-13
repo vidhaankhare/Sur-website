@@ -1,18 +1,18 @@
-'use client';
+'apos;use client'apos;;
 
-import { useState, useRef, useEffect } from 'react';
-import { Play, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect } from 'apos;react'apos;;
+import { Play, Loader2 } from 'apos;lucide-react'apos;;
+import { cn } from 'apos;@/lib/utils'apos;;
 
 // Define thumbnail quality types
-type ThumbnailQuality = 'default' | 'mqdefault' | 'hqdefault' | 'sddefault' | 'maxresdefault';
+type ThumbnailQuality = 'apos;default'apos; | 'apos;mqdefault'apos; | 'apos;hqdefault'apos; | 'apos;sddefault'apos; | 'apos;maxresdefault'apos;;
 
 // Define component props interface
 interface YouTubeEmbedProps {
   videoId: string;
   title: string;
   className?: string;
-  aspectRatio?: '16/9' | '4/3' | '1/1';
+  aspectRatio?: 'apos;16/9'apos; | 'apos;4/3'apos; | 'apos;1/1'apos;;
   autoPlay?: boolean;
   showTitle?: boolean;
   thumbnailQuality?: ThumbnailQuality;
@@ -22,11 +22,11 @@ interface YouTubeEmbedProps {
 export default function YouTubeEmbed({
   videoId,
   title,
-  className = '',
-  aspectRatio = '16/9',
+  className = 'apos;'apos;,
+  aspectRatio = 'apos;16/9'apos;,
   autoPlay = false,
   showTitle = true,
-  thumbnailQuality = 'hqdefault',
+  thumbnailQuality = 'apos;hqdefault'apos;,
 }: YouTubeEmbedProps) {
   const [isLoaded, setIsLoaded] = useState(autoPlay);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +39,7 @@ export default function YouTubeEmbed({
 
   // Calculate aspect ratio padding
   const getAspectRatioPadding = (): string => {
-    const [width, height] = aspectRatio.split('/').map(Number);
+    const [width, height] = aspectRatio.split('apos;/'apos;).map(Number);
     return `${(height / width) * 100}%`;
   };
 
@@ -50,7 +50,7 @@ export default function YouTubeEmbed({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === 'apos;Enter'apos; || e.key === 'apos; 'apos;) {
       e.preventDefault();
       handlePlay();
     }
@@ -61,7 +61,7 @@ export default function YouTubeEmbed({
     const currentSrc = target.src;
 
     // Try next lower quality thumbnail
-    const qualities: ThumbnailQuality[] = ['maxresdefault', 'hqdefault', 'mqdefault', 'default'];
+    const qualities: ThumbnailQuality[] = ['apos;maxresdefault'apos;, 'apos;hqdefault'apos;, 'apos;mqdefault'apos;, 'apos;default'apos;];
     const currentIndex = qualities.indexOf(currentThumbnail);
     
     if (currentIndex < qualities.length - 1) {
@@ -86,14 +86,14 @@ export default function YouTubeEmbed({
   return (
     <div
       className={cn(
-        'relative overflow-hidden bg-black rounded-lg',
-        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange',
+        'apos;relative overflow-hidden bg-black rounded-lg'apos;,
+        'apos;focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange'apos;,
         className
       )}
       style={{
         paddingBottom: getAspectRatioPadding(),
-        position: 'relative',
-        width: '100%',
+        position: 'apos;relative'apos;,
+        width: 'apos;100%'apos;,
         height: 0,
       }}
       aria-label={`YouTube video player for ${title}`}
@@ -115,10 +115,10 @@ export default function YouTubeEmbed({
             onClick={handlePlay}
             onKeyDown={handleKeyDown}
             className={cn(
-              'absolute inset-0 flex items-center justify-center w-full h-full',
-              'bg-black/30 hover:bg-black/20 transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange',
-              'group'
+              'apos;absolute inset-0 flex items-center justify-center w-full h-full'apos;,
+              'apos;bg-black/30 hover:bg-black/20 transition-all duration-200'apos;,
+              'apos;focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sur-orange'apos;,
+              'apos;group'apos;
             )}
             aria-label={`Play video: ${title}`}
             aria-haspopup="true"
@@ -142,9 +142,9 @@ export default function YouTubeEmbed({
             src={embedUrl}
             title={title}
             className={cn(
-              'absolute top-0 left-0 w-full h-full',
-              isLoading ? 'opacity-0' : 'opacity-100',
-              'transition-opacity duration-300'
+              'apos;absolute top-0 left-0 w-full h-full'apos;,
+              isLoading ? 'apos;opacity-0'apos; : 'apos;opacity-100'apos;,
+              'apos;transition-opacity duration-300'apos;
             )}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -1,6 +1,6 @@
-'use client';
+'apos;use client'apos;;
 
-import YouTubeEmbed from '@/components/youtube-embed';
+import YouTubeEmbed from 'apos;@/components/youtube-embed'apos;;
 
 export default function TestYouTubePage() {
   return (
